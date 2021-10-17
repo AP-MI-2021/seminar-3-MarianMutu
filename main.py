@@ -8,6 +8,7 @@ Scrieți un program cu meniu (meniul va conține o opțiune care oprește progra
 - Afișarea listei obținute din lista inițială în care float-urile cu partea
 întreagă a radicalului număr prim sunt puse ca string-uri cu caracterele în ordine inversă.
 """
+import math
 
 
 def get_int_elements(lst):
@@ -106,6 +107,46 @@ def test_palindrome_fractional_part():
     assert palindrome_fractional_part([]) == []
 
 
+def is_prime(n):
+    if n < 2:
+        return False
+    if n % 2 == 0 and n != 2:
+        return False
+    for i in range(2, n // 2 + 1):
+        if n % i == 0:
+            return False
+    return True
+
+def test_is_prime():
+    assert is_prime(34) == False
+    assert is_prime(3) == True
+    assert is_prime(-4) == False
+    assert is_prime(1) == False
+
+
+def get_sqrt_n_prime_in_reverse(lst):
+    """
+    detereminarea float-urilor cu partea întreagă a radicalului număr prim care
+    sunt puse ca string-uri cu caracterele în ordine inversă
+    :param lst:
+    :return:
+    """
+    rez = []
+    for x in lst:
+        if is_prime(int(math.sqrt(x))):
+            val = str(x)
+            val = val[::-1]
+            rez.append(val)
+        else:
+            rez.append(x)
+    return rez
+
+def test_get_sqrt_n_prime_in_reverse():
+    assert get_sqrt_n_prime_in_reverse([10.0, 100.0, 12.45]) == ['0.01', 100.0, '54.21']
+    assert get_sqrt_n_prime_in_reverse([50.0, 101.2]) == ['0.05', 101.2]
+    assert get_sqrt_n_prime_in_reverse([]) == []
+
+
 def read_list():
     """
     Citirea unei liste de float-uri.
@@ -145,7 +186,7 @@ def main():
         elif cmd == '4':
             print(palindrome_fractional_part(lst))
         elif cmd == '5':
-            pass
+            print(get_sqrt_n_prime_in_reverse(lst))
         elif cmd == 'x':
             break
         else:
@@ -158,4 +199,6 @@ if __name__ == '__main__':
     test_palindrome_fractional_part()
     test_is_palindrome()
     test_get_fractional_part()
+    test_is_prime()
+    test_get_sqrt_n_prime_in_reverse()
     main()
