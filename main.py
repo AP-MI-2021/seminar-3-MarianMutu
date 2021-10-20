@@ -150,7 +150,7 @@ def test_get_sqrt_n_prime_in_reverse():
 def read_list():
     """
     Citirea unei liste de float-uri.
-    :return: lst
+    :return: lista ceruta
     """
     list_str = input("Introduceti termenii listei: ").split(" ")
     lst = []
